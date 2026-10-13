@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Adarsh Kumar Singh — Digital Designer & Creative Developer crafting fluid interfaces, design systems, and memorable digital experiences.">
+  <meta name="author" content="Adarsh Kumar Singh">
+  <meta name="theme-color" content="#0b0b0c">
+  <title>Adarsh Kumar Singh — Digital Designer & Developer</title>
+
+  <!-- Google Fonts with robust system fallback in CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Relative stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Relative vanilla script -->
+  <script src="script.js" defer></script>
+</head>
+<body class="theme-dark">
+  <!-- Subtle Grain / Noise Overlay -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Custom Cursor Elements (Active on desktop non-touch) -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true">
+    <span class="cursor-label" id="cursor-label"></span>
+  </div>
+  <canvas id="trail-canvas" class="trail-canvas" aria-hidden="true"></canvas>
+
+  <!-- Global Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Confetti Canvas for Easter Egg & Celebrations -->
+  <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-bar" id="scroll-progress-bar" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+
+  <!-- Page-Load Intro Animation (Quick & Skippable under 1.5s) -->
+  <div class="intro-loader" id="intro-loader" aria-hidden="true">
+    <div class="intro-content">
+      <div class="intro-top">
+        <span class="intro-badge">PORTFOLIO // 2026</span>
+        <span class="intro-counter" id="intro-counter">000%</span>
+      </div>
+      <h2 class="intro-title">ADARSH KUMAR SINGH</h2>
+      <p class="intro-subtitle">Digital Designer &amp; Creative Developer</p>
+      <div class="intro-bar-wrap">
+        <div class="intro-bar" id="intro-bar"></div>
+      </div>
+      <button class="intro-skip" id="intro-skip-btn" type="button">Skip Intro [Esc / Click]</button>
+    </div>
+  </div>
+
+  <!-- Site Header & Floating Pill Navigation -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-container" aria-label="Main Navigation">
+      <!-- Brand Wordmark -->
+      <a href="#hero" class="brand-logo magnetic" aria-label="Adarsh Kumar Singh Home">
+        <span class="logo-text">ADARSH</span><span class="accent-dot">.</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="#hero" class="nav-link active magnetic" data-section="hero">Home</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link magnetic" data-section="about">About</a></li>
+        <li class="nav-item"><a href="#projects" class="nav-link magnetic" data-section="projects">Projects</a></li>
+        <li class="nav-item"><a href="#playground" class="nav-link magnetic" data-section="playground">Playground</a></li>
+        <li class="nav-item"><a href="#skills" class="nav-link magnetic" data-section="skills">Skills</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link magnetic" data-section="contact">Contact</a></li>
+      </ul>
+
+      <!-- Nav Controls: Theme Toggle & Pill CTA -->
+      <div class="nav-actions">
+        <button class="theme-toggle-btn magnetic" id="theme-toggle-btn" type="button" aria-label="Toggle light/dark theme">
+          <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="#contact" class="btn btn-pill-nav magnetic" data-cursor="TALK">
+          <span>Let's talk</span>
+          <svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M5 15L15 5M15 5H7M15 5V13"></path>
+          </svg>
+        </a>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button class="menu-toggle-btn" id="menu-toggle-btn" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+          <span class="hamburger-line line-1"></span>
+          <span class="hamburger-line line-2"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Full-Screen Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer" aria-hidden="true">
+      <div class="mobile-nav-inner">
+        <ul class="mobile-nav-list">
+          <li><a href="#hero" class="mobile-nav-link" data-section="hero"><span class="link-num">01</span>Home</a></li>
+          <li><a href="#about" class="mobile-nav-link" data-section="about"><span class="link-num">02</span>About</a></li>
+          <li><a href="#projects" class="mobile-nav-link" data-section="projects"><span class="link-num">03</span>Projects</a></li>
+          <li><a href="#playground" class="mobile-nav-link" data-section="playground"><span class="link-num">04</span>Playground</a></li>
+          <li><a href="#skills" class="mobile-nav-link" data-section="skills"><span class="link-num">05</span>Skills</a></li>
+          <li><a href="#contact" class="mobile-nav-link" data-section="contact"><span class="link-num">06</span>Contact</a></li>
+        </ul>
+        <div class="mobile-nav-footer">
+          <p class="mobile-status"><span class="pulse-dot"></span> Available for new projects</p>
+          <a href="mailto:adarsh.dev@example.com" class="mobile-email">adarsh.dev@example.com</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- ======================================================== -->
+    <!-- SECTION 1: HERO SECTION -->
+    <!-- ======================================================== -->
+    <section class="hero-section spotlight-area" id="hero" aria-label="Introduction and Hero">
+      <div class="hero-bg-blobs" aria-hidden="true">
+        <div class="hero-blob blob-coral" data-parallax-depth="0.04"></div>
+        <div class="hero-blob blob-lavender" data-parallax-depth="-0.03"></div>
+      </div>
+
+      <div class="container hero-container">
+        <!-- Hero Text & Headline Column -->
+        <div class="hero-text-content">
+          <div class="hero-status-pill reveal-item">
+            <span class="pulse-dot"></span>
+            <span class="status-label">Available for freelance &amp; full-time roles</span>
+          </div>
+
+          <!-- Signature Cursor-Reactive Headline -->
+          <h1 class="hero-title" id="hero-title" aria-label="Adarsh Kumar Singh">
+            ADARSH KUMAR SINGH
+          </h1>
+
+          <!-- Typed / Rotating Role -->
+          <div class="hero-role-wrapper reveal-item">
+            <span class="role-intro">Digital Designer &amp; Developer creating </span>
+            <span class="role-rotator" id="role-rotator">fluid web experiences</span>
+            <span class="role-cursor" aria-hidden="true">|</span>
+          </div>
+
+          <p class="hero-bio reveal-item">
+            Bridging the gap between brand elegance and engineering precision. Designing expressive, accessible interfaces and building them with clean, modern code.
+          </p>
+
+          <!-- CTAs -->
+          <div class="hero-actions reveal-item">
+            <a href="#projects" class="btn btn-primary magnetic" data-cursor="EXPLORE">
+              <span>Explore Projects</span>
+              <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 10H16M16 10L10 4M16 10L10 16"></path>
+              </svg>
+            </a>
+            <a href="#contact" class="btn btn-secondary magnetic" data-cursor="TALK">
+              <span>Get In Touch</span>
+            </a>
+          </div>
+
+          <!-- Hero Tech Ticker -->
+          <div class="hero-badges-row reveal-item">
+            <span class="micro-badge">HTML5 / CSS3</span>
+            <span class="micro-badge">Vanilla JS</span>
+            <span class="micro-badge">Figma UI/UX</span>
+            <span class="micro-badge">Creative Dev</span>
+          </div>
+        </div>
+
+        <!-- Hero Photo & Layered Floating Elements Column -->
+        <div class="hero-visual-col">
+          <div class="hero-photo-stage" id="hero-photo-stage">
+            <!-- Offset decorative backdrops behind cutout -->
+            <div class="photo-backdrop backdrop-coral" data-parallax-depth="0.05" aria-hidden="true"></div>
+            <div class="photo-backdrop backdrop-lavender" data-parallax-depth="-0.04" aria-hidden="true"></div>
+
+            <!-- Main Hero Cutout Image -->
+            <div class="hero-image-frame" data-parallax-depth="0.02">
+              <img 
+                src="assets/adarsh-hero.png" 
+                alt="Adarsh Kumar Singh — Digital Designer and Developer portrait cutout"
+                width="600" 
+                height="750" 
+                class="hero-photo" 
+                id="hero-photo"
+                onerror="handleImgError(this)" 
+                data-caption="Adarsh Kumar Singh">
+            </div>
+
+            <!-- Floating Sticker 1: "Design + Code" -->
+            <div class="floating-sticker sticker-code float-slow" data-parallax-depth="0.08" aria-hidden="true">
+              <span class="sticker-icon">✦</span>
+              <span class="sticker-text">Design + Code</span>
+            </div>
+
+            <!-- Floating Sticker 2: "Available for Work" -->
+            <div class="floating-sticker sticker-status float-medium" data-parallax-depth="-0.07" aria-hidden="true">
+              <span class="pulse-dot"></span>
+              <span class="sticker-text">60 FPS Obsessed</span>
+            </div>
+
+            <!-- Floating Sticker 3: Rotating circular badge -->
+            <div class="floating-sticker sticker-circle float-reverse" data-parallax-depth="0.10" aria-hidden="true">
+              <svg class="rotating-text-svg" viewBox="0 0 140 140">
+                <path id="circle-text-path" d="M 70, 70 m -50, 0 a 50,50 0 1,1 100,0 a 50,50 0 1,1 -100,0" fill="none"></path>
+                <text>
+                  <textPath href="#circle-text-path" startOffset="0%">
+                    • DIGITAL DESIGNER • CREATIVE DEV •
+                  </textPath>
+                </text>
+              </svg>
+              <div class="circle-center-star">★</div>
+            </div>
+
+            <!-- Floating Sparkle Stars -->
+            <div class="floating-sparkle sparkle-1 float-slow" data-parallax-depth="0.12" aria-hidden="true">✦</div>
+            <div class="floating-sparkle sparkle-2 float-medium" data-parallax-depth="-0.09" aria-hidden="true">✧</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Scroll Down Indicator -->
+      <a href="#about" class="hero-scroll-down magnetic" aria-label="Scroll to About section" data-cursor="SCROLL">
+        <span class="scroll-mouse-icon">
+          <span class="scroll-wheel"></span>
+        </span>
+        <span class="scroll-label">Scroll to explore</span>
+      </a>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SECTION 2: ABOUT SECTION -->
+    <!-- ======================================================== -->
+    <section class="about-section" id="about" aria-label="About Adarsh Kumar Singh">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header reveal-item">
+          <div class="section-tag">// 01. IDENTITY &amp; PHILOSOPHY</div>
+          <h2 class="section-title">ABOUT ME</h2>
+          <p class="section-subtitle">Design intuition meets engineering muscle.</p>
+        </div>
+
+        <div class="about-grid">
+          <!-- Left: Stacked Polaroid Photo Collage -->
+          <div class="about-photos-col">
+            <div class="polaroid-collage" id="polaroid-collage" aria-label="Interactive photo gallery of Adarsh">
+              <!-- Polaroid 1 -->
+              <div class="polaroid-card polaroid-1 tilt-card" tabindex="0" role="button" aria-label="View photo 1: Design Studio & Systems in lightbox" data-index="0" data-cursor="VIEW">
+                <div class="polaroid-inner">
+                  <div class="polaroid-img-wrap">
+                    <img 
+                      src="assets/adarsh-1.jpg" 
+                      alt="Adarsh's design studio setup and design systems workspace" 
+                      width="800" 
+                      height="600" 
+                      loading="lazy" 
+                      onerror="handleImgError(this)" 
+                      data-caption="01 // Design Studio &amp; Systems Architecture">
+                  </div>
+                  <div class="polaroid-caption">
+                    <span class="polaroid-num">01</span>
+                    <span class="polaroid-title">Design Studio &amp; Systems</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Polaroid 2 -->
+              <div class="polaroid-card polaroid-2 tilt-card" tabindex="0" role="button" aria-label="View photo 2: Wireframing & Strategy in lightbox" data-index="1" data-cursor="VIEW">
+                <div class="polaroid-inner">
+                  <div class="polaroid-img-wrap">
+                    <img 
+                      src="assets/adarsh-2.jpg" 
+                      alt="Adarsh wireframing UI flows and user interaction strategies" 
+                      width="800" 
+                      height="600" 
+                      loading="lazy" 
+                      onerror="handleImgError(this)" 
+                      data-caption="02 // Wireframing &amp; UX Strategy">
+                  </div>
+                  <div class="polaroid-caption">
+                    <span class="polaroid-num">02</span>
+                    <span class="polaroid-title">Wireframing &amp; Strategy</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Polaroid 3 -->
+              <div class="polaroid-card polaroid-3 tilt-card" tabindex="0" role="button" aria-label="View photo 3: Creative Code Lab in lightbox" data-index="2" data-cursor="VIEW">
+                <div class="polaroid-inner">
+                  <div class="polaroid-img-wrap">
+                    <img 
+                      src="assets/adarsh-3.jpg" 
+                      alt="Adarsh coding creative web animations and responsive prototypes" 
+                      width="800" 
+                      height="600" 
+                      loading="lazy" 
+                      onerror="handleImgError(this)" 
+                      data-caption="03 // Creative Code Lab &amp; Prototyping">
+                  </div>
+                  <div class="polaroid-caption">
+                    <span class="polaroid-num">03</span>
+                    <span class="polaroid-title">Creative Code Lab</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="polaroid-hint" aria-hidden="true">✦ Hover to straighten • Click to enlarge</p>
+          </div>
+
+          <!-- Right: Bio Story & Stats -->
+          <div class="about-text-col">
+            <div class="about-bio-card reveal-item">
+              <h3 class="bio-heading">Designing with intention. Coding without shortcuts.</h3>
+              <p class="bio-paragraph">
+                I'm Adarsh, a digital designer and frontend developer with an obsessive focus on craft, typography, and micro-interactions. Over the past 5+ years, I've worked across product design, design systems, and creative web engineering.
+              </p>
+              <p class="bio-paragraph">
+                I believe modern digital products shouldn't feel like generic templates. Great work requires generous negative space, intentional typography, frictionless user flows, and code architectures that run at a smooth 60 frames per second.
+              </p>
+              <p class="bio-paragraph">
+                When I'm not pushing pixels in Figma or writing clean vanilla JavaScript, you'll find me experimenting with generative canvas graphics, curating ambient synth tracks, or testing web accessibility standards.
+              </p>
+            </div>
+
+            <!-- Animated Stats Grid -->
+            <div class="stats-grid reveal-item" id="stats-grid">
+              <div class="stat-card">
+                <div class="stat-number" data-target="5" data-suffix="+">0+</div>
+                <div class="stat-label">Years of Experience</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" data-target="40" data-suffix="+">0+</div>
+                <div class="stat-label">Shipped Projects</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" data-target="99" data-suffix="%">0%</div>
+                <div class="stat-label">Client Satisfaction</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" data-target="1" data-prefix="" data-suffix="M+">0M+</div>
+                <div class="stat-label">Global User Visits</div>
+              </div>
+            </div>
+
+            <!-- Fun Facts Row -->
+            <div class="fun-facts-row reveal-item">
+              <div class="fact-chip">☕ Espresso Enthusiast</div>
+              <div class="fact-chip">⚡ 60 FPS Purist</div>
+              <div class="fact-chip">📐 Grid Systems Devotee</div>
+              <div class="fact-chip">🎧 Ambient Synthwave</div>
+              <div class="fact-chip">🕹️ Retro Arcade Gamer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SECTION 3: PROJECTS (Dedicated, Prominent Showcase) -->
+    <!-- ======================================================== -->
+    <section class="projects-section spotlight-area" id="projects" aria-label="Featured Projects Portfolio">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header-row reveal-item">
+          <div>
+            <div class="section-tag">// 02. PORTFOLIO SHOWCASE</div>
+            <h2 class="section-title">FEATURED WORK</h2>
+            <p class="section-subtitle">A curated collection of web applications, design systems, and creative dev experiments.</p>
+          </div>
+
+          <!-- Project Filter Chips -->
+          <div class="filter-chips-wrap" role="tablist" aria-label="Filter portfolio projects">
+            <button class="filter-chip active" role="tab" aria-selected="true" data-filter="all">All (6)</button>
+            <button class="filter-chip" role="tab" aria-selected="false" data-filter="web">Web Apps (3)</button>
+            <button class="filter-chip" role="tab" aria-selected="false" data-filter="design">Design Systems (2)</button>
+            <button class="filter-chip" role="tab" aria-selected="false" data-filter="creative">Creative Dev (3)</button>
+          </div>
+        </div>
+
+        <!-- Bento Grid of 6 Projects -->
+        <div class="projects-bento-grid" id="projects-bento-grid">
+          <!-- Project 1: Aether UI (Span 2) -->
+          <article class="project-card card-span-2 tilt-card" data-category="design,web" data-project-id="aether" tabindex="0" role="button" aria-label="View case study for Aether UI Design System" data-cursor="VIEW">
+            <div class="card-glass-shine" aria-hidden="true"></div>
+            <div class="project-cover cover-aether">
+              <div class="cover-art art-aether" aria-hidden="true">
+                <div class="art-grid-lines"></div>
+                <div class="art-token-node node-1">--color-accent: #ff4d2e</div>
+                <div class="art-token-node node-2">--space-fluid: clamp(1rem, 2vw, 3rem)</div>
+                <div class="art-token-node node-3">--radius-pill: 9999px</div>
+                <div class="art-glow-orb orb-coral"></div>
+              </div>
+              <span class="project-pill-category">Design System / Web</span>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">2026</span>
+                <span class="project-client">Open Source Architecture</span>
+              </div>
+              <h3 class="project-title">Aether UI — Generative Design System</h3>
+              <p class="project-desc">
+                A multi-brand tokenized design architecture with an interactive component sandbox, automated WCAG contrast validation, and real-time CSS variable exports.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Design Tokens</span>
+                <span class="tag">Figma API</span>
+                <span class="tag">CSS Architecture</span>
+                <span class="tag">Accessibility</span>
+              </div>
+              <div class="project-links-row">
+                <span class="view-case-link">
+                  <span>Explore Case Study</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+                </span>
+                <div class="project-quick-actions" onclick="event.stopPropagation()">
+                  <a href="#projects" class="quick-link" title="Live Preview" aria-label="Aether UI Live Preview">Demo</a>
+                  <a href="#projects" class="quick-link" title="Source Code" aria-label="Aether UI Source Code">Code</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2: Chronos Studio (Span 1) -->
+          <article class="project-card tilt-card" data-category="web" data-project-id="chronos" tabindex="0" role="button" aria-label="View case study for Chronos Studio" data-cursor="VIEW">
+            <div class="card-glass-shine" aria-hidden="true"></div>
+            <div class="project-cover cover-chronos">
+              <div class="cover-art art-chronos" aria-hidden="true">
+                <div class="art-timeline-bar">
+                  <div class="timeline-fill"></div>
+                </div>
+                <div class="art-metric-ring">
+                  <div class="metric-val">42.5h</div>
+                </div>
+                <div class="art-glow-orb orb-lavender"></div>
+              </div>
+              <span class="project-pill-category">Web App</span>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">2025</span>
+                <span class="project-client">Productivity Platform</span>
+              </div>
+              <h3 class="project-title">Chronos Studio — Minimalist Time Engine</h3>
+              <p class="project-desc">
+                Ultra-fast, distraction-free desktop web application for independent creators tracking billable hours and generating one-click invoices.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Vanilla JS</span>
+                <span class="tag">Canvas API</span>
+                <span class="tag">Local Storage</span>
+              </div>
+              <div class="project-links-row">
+                <span class="view-case-link">
+                  <span>View Details</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+                </span>
+                <div class="project-quick-actions" onclick="event.stopPropagation()">
+                  <a href="#projects" class="quick-link" title="Live Preview" aria-label="Chronos Studio Live Demo">Demo</a>
+                  <a href="#projects" class="quick-link" title="Source Code" aria-label="Chronos Studio Source Code">Code</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3: Nebula Audio (Span 1) -->
+          <article class="project-card tilt-card" data-category="creative" data-project-id="nebula" tabindex="0" role="button" aria-label="View case study for Nebula Audio" data-cursor="VIEW">
+            <div class="card-glass-shine" aria-hidden="true"></div>
+            <div class="project-cover cover-nebula">
+              <div class="cover-art art-nebula" aria-hidden="true">
+                <div class="art-waveform-ring ring-1"></div>
+                <div class="art-waveform-ring ring-2"></div>
+                <div class="art-waveform-ring ring-3"></div>
+                <div class="art-glow-orb orb-coral"></div>
+              </div>
+              <span class="project-pill-category">Creative Dev</span>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">2025</span>
+                <span class="project-client">Audio Synthesis Lab</span>
+              </div>
+              <h3 class="project-title">Nebula Audio — 3D Spatial Synthesizer</h3>
+              <p class="project-desc">
+                Browser-based interactive sound interface with real-time generative harmonic rings, spatial panning physics, and kinetic canvas waveforms.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Web Audio API</span>
+                <span class="tag">Canvas 2D</span>
+                <span class="tag">Math / Physics</span>
+              </div>
+              <div class="project-links-row">
+                <span class="view-case-link">
+                  <span>View Details</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+                </span>
+                <div class="project-quick-actions" onclick="event.stopPropagation()">
+                  <a href="#projects" class="quick-link" title="Live Preview" aria-label="Nebula Audio Live Demo">Demo</a>
+                  <a href="#projects" class="quick-link" title="Source Code" aria-label="Nebula Audio Source Code">Code</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4: Lumina (Span 2) -->
+          <article class="project-card card-span-2 tilt-card" data-category="web,design" data-project-id="lumina" tabindex="0" role="button" aria-label="View case study for Lumina Architectural Lighting" data-cursor="VIEW">
+            <div class="card-glass-shine" aria-hidden="true"></div>
+            <div class="project-cover cover-lumina">
+              <div class="cover-art art-lumina" aria-hidden="true">
+                <div class="art-light-cone"></div>
+                <div class="art-fixture-geometry"></div>
+                <div class="art-glow-orb orb-lime"></div>
+              </div>
+              <span class="project-pill-category">Web Apps / Design</span>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">2026</span>
+                <span class="project-client">Studio Lumina Architecture</span>
+              </div>
+              <h3 class="project-title">Lumina — Architectural Luminaire Experience</h3>
+              <p class="project-desc">
+                An editorial e-commerce and visual configuration experience for bespoke lighting designers, featuring interactive ambient light simulations and fluid layout transitions.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Fluid Typography</span>
+                <span class="tag">Interactive UI</span>
+                <span class="tag">Figma</span>
+                <span class="tag">CSS Grid</span>
+              </div>
+              <div class="project-links-row">
+                <span class="view-case-link">
+                  <span>Explore Case Study</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+                </span>
+                <div class="project-quick-actions" onclick="event.stopPropagation()">
+                  <a href="#projects" class="quick-link" title="Live Preview" aria-label="Lumina Live Demo">Demo</a>
+                  <a href="#projects" class="quick-link" title="Source Code" aria-label="Lumina Source Code">Code</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 5: Kanso Notes (Span 1) -->
+          <article class="project-card tilt-card" data-category="web" data-project-id="kanso" tabindex="0" role="button" aria-label="View case study for Kanso Notes" data-cursor="VIEW">
+            <div class="card-glass-shine" aria-hidden="true"></div>
+            <div class="project-cover cover-kanso">
+              <div class="cover-art art-kanso" aria-hidden="true">
+                <div class="art-kanso-lines">
+                  <div class="kanso-line line-h"></div>
+                  <div class="kanso-line line-p1"></div>
+                  <div class="kanso-line line-p2"></div>
+                </div>
+                <div class="art-kanso-stamp">簡素</div>
+              </div>
+              <span class="project-pill-category">Web App</span>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">2025</span>
+                <span class="project-client">Personal Productivity</span>
+              </div>
+              <h3 class="project-title">Kanso Notes — Zen Markdown Workspace</h3>
+              <p class="project-desc">
+                Distraction-free, keyboard-driven markdown editor engineered for writers. Instant offline local caching, typography focus mode, and zero external dependencies.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Vanilla JS</span>
+                <span class="tag">Typography</span>
+                <span class="tag">Offline First</span>
+              </div>
+              <div class="project-links-row">
+                <span class="view-case-link">
+                  <span>View Details</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+                </span>
+                <div class="project-quick-actions" onclick="event.stopPropagation()">
+                  <a href="#projects" class="quick-link" title="Live Preview" aria-label="Kanso Notes Live Demo">Demo</a>
+                  <a href="#projects" class="quick-link" title="Source Code" aria-label="Kanso Notes Source Code">Code</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 6: Verve Magazine (Span 1) -->
+          <article class="project-card tilt-card" data-category="creative,design" data-project-id="verve" tabindex="0" role="button" aria-label="View case study for Verve Magazine" data-cursor="VIEW">
+            <div class="card-glass-shine" aria-hidden="true"></div>
+            <div class="project-cover cover-verve">
+              <div class="cover-art art-verve" aria-hidden="true">
+                <div class="art-verve-type">VERVE</div>
+                <div class="art-verve-sub">VOL. 09 // ISSUE KINETIC</div>
+                <div class="art-glow-orb orb-purple"></div>
+              </div>
+              <span class="project-pill-category">Creative Dev / Editorial</span>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">2026</span>
+                <span class="project-client">Digital Editorial Collective</span>
+              </div>
+              <h3 class="project-title">Verve Magazine — Kinetic Editorial</h3>
+              <p class="project-desc">
+                Experimental online publication pushing the boundaries of web typography, split-screen storytelling, and gesture-driven chapter transitions.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Editorial UI</span>
+                <span class="tag">Scroll Timelines</span>
+                <span class="tag">SVG Animation</span>
+              </div>
+              <div class="project-links-row">
+                <span class="view-case-link">
+                  <span>View Details</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+                </span>
+                <div class="project-quick-actions" onclick="event.stopPropagation()">
+                  <a href="#projects" class="quick-link" title="Live Preview" aria-label="Verve Magazine Live Demo">Demo</a>
+                  <a href="#projects" class="quick-link" title="Source Code" aria-label="Verve Magazine Source Code">Code</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Featured Case Study Spotlight Row (Draggable Horizontal Gallery) -->
+        <div class="case-study-spotlight reveal-item">
+          <div class="spotlight-header">
+            <div>
+              <span class="spotlight-badge">DEEP DIVE GALLERY</span>
+              <h3 class="spotlight-title">Project Evolution &amp; Process Wireframes</h3>
+            </div>
+            <div class="drag-hint" aria-hidden="true">
+              <span class="drag-arrows">← Drag horizontally →</span>
+            </div>
+          </div>
+
+          <div class="drag-gallery-track" id="drag-gallery-track" tabindex="0" role="region" aria-label="Draggable case study process gallery" data-cursor="DRAG">
+            <div class="gallery-slide">
+              <div class="gallery-card">
+                <div class="slide-tag">01 // DISCOVERY</div>
+                <h4 class="slide-title">Information Architecture</h4>
+                <p class="slide-desc">Synthesizing user research, wireframing navigation taxonomies, and testing early low-fidelity flows.</p>
+                <div class="slide-mockup mockup-wireframe">
+                  <div class="wireframe-box box-1"></div>
+                  <div class="wireframe-box box-2"></div>
+                  <div class="wireframe-box box-3"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery-slide">
+              <div class="gallery-card">
+                <div class="slide-tag">02 // DESIGN TOKENS</div>
+                <h4 class="slide-title">Typography &amp; Fluid Scale</h4>
+                <p class="slide-desc">Building mathematical font ramps with clamp(), harmonized 8px spatial scales, and semantic palettes.</p>
+                <div class="slide-mockup mockup-tokens">
+                  <div class="token-bar bar-1">clamp(2rem, 5vw, 4rem)</div>
+                  <div class="token-bar bar-2">--color-accent: #ff4d2e</div>
+                  <div class="token-bar bar-3">--radius-pill: 9999px</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery-slide">
+              <div class="gallery-card">
+                <div class="slide-tag">03 // PROTOTYPING</div>
+                <h4 class="slide-title">Micro-Interactions &amp; Motion</h4>
+                <p class="slide-desc">Choreographing reactive hover states, spring-based cursor magnetics, and 3D card tilt highlights.</p>
+                <div class="slide-mockup mockup-motion">
+                  <div class="motion-dot dot-1"></div>
+                  <div class="motion-dot dot-2"></div>
+                  <div class="motion-dot dot-3"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery-slide">
+              <div class="gallery-card">
+                <div class="slide-tag">04 // PRODUCTION</div>
+                <h4 class="slide-title">60 FPS Vanilla Implementation</h4>
+                <p class="slide-desc">Writing semantic HTML5, modern CSS Grid/Flexbox, and lean requestAnimationFrame loops without dependencies.</p>
+                <div class="slide-mockup mockup-code">
+                  <code>requestAnimationFrame(render);</code>
+                  <code>el.style.transform = `translate3d(...)`;</code>
+                  <code>IntersectionObserver(...)</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SECTION 4: INTERACTIVE PLAYGROUND (Fun, Hands-on Lab) -->
+    <!-- ======================================================== -->
+    <section class="playground-section spotlight-area" id="playground" aria-label="Interactive Playground and Experiments">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header reveal-item">
+          <div class="section-tag">// 03. LAB &amp; EXPERIMENTS</div>
+          <h2 class="section-title">INTERACTIVE PLAYGROUND</h2>
+          <p class="section-subtitle">Hands-on creative tools, live vibe switchers, and tactile widgets built for curiosity.</p>
+        </div>
+
+        <div class="playground-grid">
+          <!-- Toy 1: Pick Your Vibe (Live Accent Color Switcher) -->
+          <div class="play-card vibe-card reveal-item">
+            <div class="play-card-header">
+              <div class="play-card-icon">🎨</div>
+              <div>
+                <h3 class="play-card-title">Pick Your Vibe</h3>
+                <p class="play-card-desc">Live-update the whole portfolio's accent color &amp; glows in real time.</p>
+              </div>
+            </div>
+
+            <div class="vibe-palette-row" role="group" aria-label="Select accent color theme">
+              <button class="vibe-btn active" data-vibe="coral" data-hex="#ff4d2e" style="--btn-color: #ff4d2e" aria-label="Hot Coral theme">
+                <span class="vibe-swatch"></span>
+                <span class="vibe-name">Hot Coral</span>
+              </button>
+              <button class="vibe-btn" data-vibe="lime" data-hex="#10e575" style="--btn-color: #10e575" aria-label="Electric Lime theme">
+                <span class="vibe-swatch"></span>
+                <span class="vibe-name">Electric Lime</span>
+              </button>
+              <button class="vibe-btn" data-vibe="cyan" data-hex="#00f0ff" style="--btn-color: #00f0ff" aria-label="Cyber Cyan theme">
+                <span class="vibe-swatch"></span>
+                <span class="vibe-name">Cyber Cyan</span>
+              </button>
+              <button class="vibe-btn" data-vibe="purple" data-hex="#a855f7" style="--btn-color: #a855f7" aria-label="Hyper Violet theme">
+                <span class="vibe-swatch"></span>
+                <span class="vibe-name">Hyper Violet</span>
+              </button>
+              <button class="vibe-btn" data-vibe="amber" data-hex="#ffb703" style="--btn-color: #ffb703" aria-label="Amber Gold theme">
+                <span class="vibe-swatch"></span>
+                <span class="vibe-name">Amber Gold</span>
+              </button>
+            </div>
+
+            <div class="vibe-preview-badge">
+              <span class="current-vibe-label">Current Accent: </span>
+              <strong id="current-vibe-name">Hot Coral (#ff4d2e)</strong>
+              <span class="vibe-save-hint">✓ Saved to localStorage</span>
+            </div>
+          </div>
+
+          <!-- Toy 2: Draggable Sticker Board -->
+          <div class="play-card sticker-board-card reveal-item">
+            <div class="play-card-header">
+              <div class="play-card-icon">⚡</div>
+              <div>
+                <h3 class="play-card-title">Draggable Sticker Board</h3>
+                <p class="play-card-desc">Grab, toss and throw tactile stickers with physics momentum.</p>
+              </div>
+              <button class="btn-sm btn-ghost reset-stickers-btn" id="reset-stickers-btn" type="button">Reset</button>
+            </div>
+
+            <div class="sticker-sandbox" id="sticker-sandbox" data-cursor="DRAG" aria-label="Interactive draggable stickers board">
+              <div class="sandbox-hint" aria-hidden="true">✦ Drag stickers around &amp; fling them!</div>
+              <!-- Floating Draggable Stickers -->
+              <div class="drag-sticker sticker-item-1" data-id="1" tabindex="0" role="button" aria-label="Draggable sticker: Ship It">
+                <span>🔥 SHIP IT!</span>
+              </div>
+              <div class="drag-sticker sticker-item-2" data-id="2" tabindex="0" role="button" aria-label="Draggable sticker: 60 FPS Only">
+                <span>⚡ 60 FPS ONLY</span>
+              </div>
+              <div class="drag-sticker sticker-item-3" data-id="3" tabindex="0" role="button" aria-label="Draggable sticker: Pixel Perfect">
+                <span>📐 PIXEL PERFECT</span>
+              </div>
+              <div class="drag-sticker sticker-item-4" data-id="4" tabindex="0" role="button" aria-label="Draggable sticker: Coffee First">
+                <span>☕ ESPRESSO FIRST</span>
+              </div>
+              <div class="drag-sticker sticker-item-5" data-id="5" tabindex="0" role="button" aria-label="Draggable sticker: Design + Code">
+                <span>✦ DESIGN + CODE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Toy 3: Coral Doodle Pad -->
+          <div class="play-card doodle-card reveal-item">
+            <div class="play-card-header">
+              <div class="play-card-icon">✏️</div>
+              <div>
+                <h3 class="play-card-title">Canvas Doodle Pad</h3>
+                <p class="play-card-desc">Draw with glowing strokes. Clear or download your sketch as a PNG!</p>
+              </div>
+              <div class="doodle-actions">
+                <button class="btn-sm btn-ghost" id="doodle-clear-btn" type="button">Clear</button>
+                <button class="btn-sm btn-accent" id="doodle-download-btn" type="button">Export PNG</button>
+              </div>
+            </div>
+
+            <div class="doodle-canvas-wrap" data-cursor="DRAW">
+              <canvas id="doodle-canvas" class="doodle-canvas" width="600" height="320" aria-label="Interactive drawing canvas"></canvas>
+            </div>
+
+            <div class="doodle-controls">
+              <div class="brush-size-group">
+                <span class="ctrl-label">Size:</span>
+                <button class="brush-btn active" data-size="3" aria-label="Fine brush">Fine</button>
+                <button class="brush-btn" data-size="7" aria-label="Medium brush">Medium</button>
+                <button class="brush-btn" data-size="14" aria-label="Bold brush">Bold</button>
+              </div>
+              <span class="doodle-hint">Touch &amp; Mouse supported</span>
+            </div>
+          </div>
+
+          <!-- Toy 4: Spin the Skills Wheel & Orbit -->
+          <div class="play-card orbit-card reveal-item">
+            <div class="play-card-header">
+              <div class="play-card-icon">🪐</div>
+              <div>
+                <h3 class="play-card-title">Skill Orbit Wheel</h3>
+                <p class="play-card-desc">Spin the orbit wheel or click nodes to inspect proficiency.</p>
+              </div>
+              <button class="btn-sm btn-ghost" id="spin-orbit-btn" type="button">Spin</button>
+            </div>
+
+            <div class="orbit-stage" id="orbit-stage">
+              <div class="orbit-wheel" id="orbit-wheel">
+                <div class="orbit-ring-circle"></div>
+                <!-- 8 Orbital Nodes -->
+                <button class="orbit-node node-0" data-skill="UI/UX Architecture" data-level="96%" data-desc="Design token hierarchies, Figma component libraries, and ergonomic interfaces." aria-label="Skill UI/UX Architecture">UI/UX</button>
+                <button class="orbit-node node-1" data-skill="Modern CSS &amp; Grid" data-level="98%" data-desc="Responsive layouts, clamp() typography, CSS custom properties, and subgrid." aria-label="Skill Modern CSS">CSS3</button>
+                <button class="orbit-node node-2" data-skill="Vanilla JavaScript" data-level="95%" data-desc="Zero-dependency DOM manipulation, requestAnimationFrame, and event delegation." aria-label="Skill Vanilla JavaScript">JS</button>
+                <button class="orbit-node node-3" data-skill="Creative Coding" data-level="91%" data-desc="Canvas 2D graphics, SVG generative art, and particle physics." aria-label="Skill Creative Coding">Canvas</button>
+                <button class="orbit-node node-4" data-skill="Web Accessibility" data-level="94%" data-desc="WCAG 2.1 AA compliance, semantic markup, focus traps, and keyboard navigation." aria-label="Skill Accessibility">A11y</button>
+                <button class="orbit-node node-5" data-skill="60 FPS Performance" data-level="96%" data-desc="Sub-100ms TTI, Core Web Vitals, lightweight bundle optimization." aria-label="Skill Performance">Perf</button>
+                <button class="orbit-node node-6" data-skill="Design Systems" data-level="95%" data-desc="Multi-brand token architectures, Figma Tokens, and component documentation." aria-label="Skill Design Systems">Tokens</button>
+                <button class="orbit-node node-7" data-skill="Micro-Interactions" data-level="93%" data-desc="Physics-based cursor magnetics, 3D card tilts, and smooth layout transitions." aria-label="Skill Micro-Interactions">Motion</button>
+              </div>
+
+              <!-- Skill Orbit Detail Box in Center -->
+              <div class="orbit-center-display" id="orbit-center-display">
+                <span class="orbit-badge-pct" id="orbit-pct">96%</span>
+                <strong class="orbit-title-text" id="orbit-title">UI/UX Architecture</strong>
+                <p class="orbit-desc-text" id="orbit-desc">Design token hierarchies, Figma component libraries, and ergonomic interfaces.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SECTION 5: SKILLS & SERVICES (Accessible Accordion) -->
+    <!-- ======================================================== -->
+    <section class="skills-section" id="skills" aria-label="Skills and Services Accordion">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header reveal-item">
+          <div class="section-tag">// 04. CAPABILITIES</div>
+          <h2 class="section-title">SKILLS &amp; SERVICES</h2>
+          <p class="section-subtitle">Deep expertise across modern product design and frontend engineering.</p>
+        </div>
+
+        <div class="accordion-container" id="skills-accordion">
+          <!-- Accordion Item 1 -->
+          <div class="accordion-item is-open reveal-item">
+            <button class="accordion-header" type="button" aria-expanded="true" aria-controls="panel-1" id="accordion-btn-1">
+              <span class="acc-num">01</span>
+              <span class="acc-title">UI/UX &amp; Product Design</span>
+              <span class="acc-badge">Figma • Tokens • Wireframing</span>
+              <span class="acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-panel" id="panel-1" role="region" aria-labelledby="accordion-btn-1">
+              <div class="panel-content">
+                <p class="panel-text">
+                  Crafting human-centric interfaces from exploratory wireframes to high-fidelity design systems. Establishing design tokens, responsive layout rules, accessible color contrast models, and intuitive user journeys that reduce cognitive friction.
+                </p>
+                <div class="skill-bars-list">
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>Figma &amp; Design Systems</span><span class="bar-val">96%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 96%"></div></div>
+                  </div>
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>User Flow &amp; Wireframing</span><span class="bar-val">93%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 93%"></div></div>
+                  </div>
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>Prototyping &amp; Micro-interactions</span><span class="bar-val">95%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 95%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion Item 2 -->
+          <div class="accordion-item reveal-item">
+            <button class="accordion-header" type="button" aria-expanded="false" aria-controls="panel-2" id="accordion-btn-2">
+              <span class="acc-num">02</span>
+              <span class="acc-title">Modern Frontend Engineering</span>
+              <span class="acc-badge">HTML5 • CSS3 Grid • Vanilla JS</span>
+              <span class="acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-panel" id="panel-2" role="region" aria-labelledby="accordion-btn-2">
+              <div class="panel-content">
+                <p class="panel-text">
+                  Writing clean, semantic HTML5 and modern CSS architecture without relying on heavy unnecessary frameworks. Creating responsive, resilient web applications that load in milliseconds and deliver silky-smooth user interactions.
+                </p>
+                <div class="skill-bars-list">
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>Modern CSS &amp; Fluid Layouts</span><span class="bar-val">98%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 98%"></div></div>
+                  </div>
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>Modern Vanilla JavaScript</span><span class="bar-val">95%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 95%"></div></div>
+                  </div>
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>Responsive Cross-Browser Architecture</span><span class="bar-val">97%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 97%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion Item 3 -->
+          <div class="accordion-item reveal-item">
+            <button class="accordion-header" type="button" aria-expanded="false" aria-controls="panel-3" id="accordion-btn-3">
+              <span class="acc-num">03</span>
+              <span class="acc-title">Creative Coding &amp; Web Motion</span>
+              <span class="acc-badge">Canvas 2D • SVG • Cursor Physics</span>
+              <span class="acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-panel" id="panel-3" role="region" aria-labelledby="accordion-btn-3">
+              <div class="panel-content">
+                <p class="panel-text">
+                  Bringing static screens to life through choreographed motion, canvas generative art, cursor-driven parallax, and tactile drag-and-drop interactions. Everything tuned for maximum performance with requestAnimationFrame.
+                </p>
+                <div class="skill-bars-list">
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>Cursor &amp; Parallax Choreography</span><span class="bar-val">94%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 94%"></div></div>
+                  </div>
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>HTML5 Canvas 2D &amp; Particles</span><span class="bar-val">91%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 91%"></div></div>
+                  </div>
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>SVG Animation &amp; Keyframes</span><span class="bar-val">93%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 93%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion Item 4 -->
+          <div class="accordion-item reveal-item">
+            <button class="accordion-header" type="button" aria-expanded="false" aria-controls="panel-4" id="accordion-btn-4">
+              <span class="acc-num">04</span>
+              <span class="acc-title">Accessibility &amp; Performance</span>
+              <span class="acc-badge">WCAG 2.1 AA • Core Web Vitals</span>
+              <span class="acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-panel" id="panel-4" role="region" aria-labelledby="accordion-btn-4">
+              <div class="panel-content">
+                <p class="panel-text">
+                  Ensuring digital experiences are inclusive and blazing fast for all visitors. Full keyboard navigability, focus management, screen-reader semantics, prefers-reduced-motion accommodations, and optimized asset delivery.
+                </p>
+                <div class="skill-bars-list">
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>Web Accessibility (WCAG AA)</span><span class="bar-val">95%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 95%"></div></div>
+                  </div>
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>Core Web Vitals &amp; Page Speed</span><span class="bar-val">96%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 96%"></div></div>
+                  </div>
+                  <div class="skill-bar-row">
+                    <div class="bar-info"><span>Keyboard &amp; Assistive Navigation</span><span class="bar-val">94%</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="--fill-pct: 94%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SECTION 6: INFINITE MARQUEE STRIP -->
+    <!-- ======================================================== -->
+    <div class="marquee-section" id="marquee-strip" aria-label="Key tools and capabilities ribbon">
+      <div class="marquee-track" id="marquee-track">
+        <div class="marquee-content">
+          <span class="marquee-item">FIGMA</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">VANILLA JS</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">MODERN CSS</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">DESIGN SYSTEMS</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">UI/UX ARCHITECTURE</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">RESPONSIVE DESIGN</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">CANVAS 2D</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">ACCESSIBILITY (WCAG)</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">60 FPS PERFORMANCE</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">MICRO-INTERACTIONS</span><span class="marquee-star">✦</span>
+        </div>
+        <!-- Duplicated track for seamless infinite looping -->
+        <div class="marquee-content" aria-hidden="true">
+          <span class="marquee-item">FIGMA</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">VANILLA JS</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">MODERN CSS</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">DESIGN SYSTEMS</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">UI/UX ARCHITECTURE</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">RESPONSIVE DESIGN</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">CANVAS 2D</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">ACCESSIBILITY (WCAG)</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">60 FPS PERFORMANCE</span><span class="marquee-star">✦</span>
+          <span class="marquee-item">MICRO-INTERACTIONS</span><span class="marquee-star">✦</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- SECTION 7: TESTIMONIALS SLIDER -->
+    <!-- ======================================================== -->
+    <section class="testimonials-section" id="testimonials" aria-label="Client Testimonials and Endorsements">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header-row reveal-item">
+          <div>
+            <div class="section-tag">// 05. TESTIMONIALS</div>
+            <h2 class="section-title">WHAT PARTNERS SAY</h2>
+            <p class="section-subtitle">Real words from founders, design directors, and creative collaborators.</p>
+          </div>
+
+          <!-- Slider Controls -->
+          <div class="slider-nav-btns" aria-label="Testimonial slider controls">
+            <button class="slider-btn prev-btn magnetic" id="slider-prev-btn" type="button" aria-label="Previous testimonial">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 16L7 10L13 4"></path></svg>
+            </button>
+            <button class="slider-btn next-btn magnetic" id="slider-next-btn" type="button" aria-label="Next testimonial">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4L13 10L7 16"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Slider Stage -->
+        <div class="testimonials-slider-stage" id="testimonials-stage" data-cursor="SWIPE">
+          <div class="testimonials-track" id="testimonials-track">
+            <!-- Slide 1 -->
+            <div class="testimonial-slide active" data-slide="0">
+              <div class="testimonial-card">
+                <div class="quote-mark">“</div>
+                <p class="quote-text">
+                  Adarsh is that rare creative technologist who marries immaculate visual taste with rigorous engineering discipline. He overhauled our design system and delivered a web experience that feels completely alive.
+                </p>
+                <div class="quotee-info">
+                  <div class="quotee-avatar">SL</div>
+                  <div>
+                    <h4 class="quotee-name">Sarah Lin</h4>
+                    <p class="quotee-role">Head of Product Design, Vertex Studio</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="testimonial-slide" data-slide="1">
+              <div class="testimonial-card">
+                <div class="quote-mark">“</div>
+                <p class="quote-text">
+                  Working with Adarsh was effortlessly seamless. He solved complex layout hurdles with pure CSS, wrote zero framework bloat, and kept every animation at a locked 60 frames per second. An absolute powerhouse.
+                </p>
+                <div class="quotee-info">
+                  <div class="quotee-avatar">MV</div>
+                  <div>
+                    <h4 class="quotee-name">Marcus Vance</h4>
+                    <p class="quotee-role">Co-Founder &amp; CTO, Chronos Labs</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="testimonial-slide" data-slide="2">
+              <div class="testimonial-card">
+                <div class="quote-mark">“</div>
+                <p class="quote-text">
+                  Adarsh elevated our digital editorial from standard flat pages into a kinetic, multi-layered journey. His grasp of responsive typography and subtle micro-interactions is world class.
+                </p>
+                <div class="quotee-info">
+                  <div class="quotee-avatar">ER</div>
+                  <div>
+                    <h4 class="quotee-name">Elena Rostova</h4>
+                    <p class="quotee-role">Creative Director, Verve Collective</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="testimonial-slide" data-slide="3">
+              <div class="testimonial-card">
+                <div class="quote-mark">“</div>
+                <p class="quote-text">
+                  High communication, pixel perfection, and deep technical mastery. Adarsh delivered ahead of schedule and our user engagement metrics jumped 40% post-launch.
+                </p>
+                <div class="quotee-info">
+                  <div class="quotee-avatar">DC</div>
+                  <div>
+                    <h4 class="quotee-name">David Chen</h4>
+                    <p class="quotee-role">VP of Engineering, Lumina Space</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slider Dots -->
+          <div class="slider-dots" id="slider-dots" role="tablist" aria-label="Testimonial slides pagination">
+            <button class="slider-dot active" role="tab" aria-selected="true" data-slide="0" aria-label="Go to slide 1"></button>
+            <button class="slider-dot" role="tab" aria-selected="false" data-slide="1" aria-label="Go to slide 2"></button>
+            <button class="slider-dot" role="tab" aria-selected="false" data-slide="2" aria-label="Go to slide 3"></button>
+            <button class="slider-dot" role="tab" aria-selected="false" data-slide="3" aria-label="Go to slide 4"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SECTION 8: CONTACT SECTION -->
+    <!-- ======================================================== -->
+    <section class="contact-section spotlight-area" id="contact" aria-label="Contact Adarsh Kumar Singh">
+      <div class="container">
+        <!-- Floating Say Hi Sticker -->
+        <div class="floating-sayhi-sticker float-slow" aria-hidden="true">
+          <span>Say Hi! 👋</span>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Left: Big Display Message & Direct Info -->
+          <div class="contact-info-col reveal-item">
+            <div class="section-tag">// 06. GET IN TOUCH</div>
+            <h2 class="contact-display-title">
+              LET'S BUILD SOMETHING EXTRAORDINARY.
+            </h2>
+            <p class="contact-subtext">
+              Have an upcoming product redesign, design system need, or a creative frontend build? I'm currently open for freelance projects, design contracts, and full-time opportunities.
+            </p>
+
+            <!-- Quick Email Copy Box -->
+            <div class="email-copy-box">
+              <div class="copy-box-left">
+                <span class="copy-box-label">Direct Email</span>
+                <span class="copy-box-email" id="target-email">adarsh.dev@example.com</span>
+              </div>
+              <button class="btn btn-sm btn-accent magnetic" id="copy-email-btn" type="button" aria-label="Copy email address to clipboard">
+                <span id="copy-btn-text">Copy Email</span>
+                <svg class="copy-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="8" y="8" width="10" height="10" rx="2"></rect>
+                  <path d="M4 12V4a2 2 0 0 1 2-2h8"></path>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Live Status & Local Time Card -->
+            <div class="live-status-card">
+              <div class="status-indicator-row">
+                <span class="pulse-dot"></span>
+                <strong>Available for Q4 2026 Opportunities</strong>
+              </div>
+              <div class="local-time-row">
+                <span class="clock-icon">🕒</span>
+                <span>Adarsh's Local Time: </span>
+                <span class="time-display" id="local-clock">--:--:-- IST</span>
+              </div>
+            </div>
+
+            <!-- Social Links Row -->
+            <div class="social-links-wrap">
+              <span class="social-label">Connect across the web:</span>
+              <div class="social-pills-row">
+                <!-- EDIT ME: Replace placeholder URLs with your personal profiles -->
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-pill magnetic">GitHub</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-pill magnetic">LinkedIn</a>
+                <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" class="social-pill magnetic">Dribbble</a>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-pill magnetic">X / Twitter</a>
+                <a href="https://codepen.io" target="_blank" rel="noopener noreferrer" class="social-pill magnetic">CodePen</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Interactive Contact Form -->
+          <div class="contact-form-col reveal-item">
+            <form class="contact-form" id="contact-form" novalidate aria-label="Send a direct message">
+              <h3 class="form-heading">Send a Message</h3>
+
+              <!-- Name Field -->
+              <div class="form-group" id="group-name">
+                <label for="contact-name" class="form-label">Your Name <span class="req">*</span></label>
+                <input 
+                  type="text" 
+                  id="contact-name" 
+                  name="name" 
+                  class="form-input" 
+                  placeholder="e.g. Alex Morgan" 
+                  required 
+                  minlength="2"
+                  autocomplete="name">
+                <span class="form-error-msg" id="err-name" aria-live="polite"></span>
+              </div>
+
+              <!-- Email Field -->
+              <div class="form-group" id="group-email">
+                <label for="contact-email" class="form-label">Your Email <span class="req">*</span></label>
+                <input 
+                  type="email" 
+                  id="contact-email" 
+                  name="email" 
+                  class="form-input" 
+                  placeholder="alex@company.com" 
+                  required
+                  autocomplete="email">
+                <span class="form-error-msg" id="err-email" aria-live="polite"></span>
+              </div>
+
+              <!-- Project Type Selection -->
+              <div class="form-group">
+                <label class="form-label">Project Type</label>
+                <div class="project-type-pills" role="radiogroup" aria-label="Select project type">
+                  <label class="type-pill">
+                    <input type="radio" name="projectType" value="Full Website" checked>
+                    <span>Full Website</span>
+                  </label>
+                  <label class="type-pill">
+                    <input type="radio" name="projectType" value="Design System">
+                    <span>Design System</span>
+                  </label>
+                  <label class="type-pill">
+                    <input type="radio" name="projectType" value="Creative Dev">
+                    <span>Creative Dev</span>
+                  </label>
+                  <label class="type-pill">
+                    <input type="radio" name="projectType" value="Other">
+                    <span>Other</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Message Field -->
+              <div class="form-group" id="group-message">
+                <div class="label-with-count">
+                  <label for="contact-message" class="form-label">Your Message <span class="req">*</span></label>
+                  <span class="char-counter" id="char-counter">0 / 500</span>
+                </div>
+                <textarea 
+                  id="contact-message" 
+                  name="message" 
+                  class="form-textarea" 
+                  rows="5" 
+                  placeholder="Tell me about your project, timeline, and goals..." 
+                  required 
+                  minlength="10" 
+                  maxlength="500"></textarea>
+                <span class="form-error-msg" id="err-message" aria-live="polite"></span>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary btn-submit-form magnetic" id="submit-btn" data-cursor="SEND">
+                <span class="btn-text">Send Message</span>
+                <span class="btn-spinner" aria-hidden="true"></span>
+                <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M5 15L15 5M15 5H7M15 5V13"></path>
+                </svg>
+              </button>
+
+              <!-- Success Alert Message -->
+              <div class="form-success-banner" id="form-success-banner" role="alert" aria-live="polite">
+                <span class="success-icon">✓</span>
+                <div>
+                  <strong>Message sent successfully!</strong>
+                  <p>Thanks for reaching out, Adarsh will respond within 24 hours.</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ======================================================== -->
+  <!-- FOOTER -->
+  <!-- ======================================================== -->
+  <footer class="site-footer" id="site-footer">
+    <div class="container footer-container">
+      <div class="footer-top-row">
+        <div>
+          <a href="#hero" class="footer-logo magnetic">ADARSH<span class="accent-dot">.</span></a>
+          <p class="footer-tagline">Crafted with intentional design, semantic HTML, modern CSS, and vanilla JS. Zero frameworks.</p>
+        </div>
+
+        <button class="back-to-top-btn magnetic" id="back-to-top-btn" type="button" aria-label="Back to top of page" data-cursor="TOP">
+          <span>Back to Top</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 16V4M10 4L4 10M10 4L16 10"></path></svg>
+        </button>
+      </div>
+
+      <div class="footer-bottom-row">
+        <div class="copyright-text">
+          &copy; <span id="current-year">2026</span> Adarsh Kumar Singh. All rights reserved.
+        </div>
+        <div class="easter-egg-hint">
+          <span class="konami-tip">⌨️ Pro Tip: Try the Konami Code (↑ ↑ ↓ ↓ ← → ← → B A)</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ======================================================== -->
+  <!-- PROJECT CASE STUDY DETAILED MODAL -->
+  <!-- ======================================================== -->
+  <div class="modal-overlay" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-project-title" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-window" id="modal-window">
+      <!-- Modal Close Button -->
+      <button class="modal-close-btn magnetic" id="modal-close-btn" type="button" aria-label="Close project modal (Esc)">
+        ✕
+      </button>
+
+      <div class="modal-scroll-body">
+        <!-- Modal Banner / Cover -->
+        <div class="modal-hero-cover" id="modal-hero-cover">
+          <span class="modal-category-badge" id="modal-category">Category</span>
+          <h2 class="modal-title" id="modal-project-title">Project Title</h2>
+          <p class="modal-tagline" id="modal-tagline">One line summary of the project.</p>
+        </div>
+
+        <!-- Meta Bar -->
+        <div class="modal-meta-bar">
+          <div class="meta-item">
+            <span class="meta-label">Year</span>
+            <span class="meta-value" id="modal-year">2026</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value" id="modal-role">Design &amp; Engineering</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Client</span>
+            <span class="meta-value" id="modal-client">Client Name</span>
+          </div>
+          <div class="meta-item-links">
+            <a href="#projects" class="btn btn-sm btn-accent" id="modal-demo-link" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+            <a href="#projects" class="btn btn-sm btn-ghost" id="modal-code-link" target="_blank" rel="noopener noreferrer">Source Code</a>
+          </div>
+        </div>
+
+        <!-- Modal Content Grid -->
+        <div class="modal-details-grid">
+          <!-- Left: Narrative -->
+          <div class="modal-narrative">
+            <section class="modal-section">
+              <h3 class="modal-subheading">The Challenge</h3>
+              <p class="modal-p" id="modal-challenge">Description of the problem space and initial constraints.</p>
+            </section>
+
+            <section class="modal-section">
+              <h3 class="modal-subheading">The Architecture &amp; Solution</h3>
+              <p class="modal-p" id="modal-solution">How the design and technical approach resolved the challenge.</p>
+            </section>
+
+            <section class="modal-section">
+              <h3 class="modal-subheading">Key Results &amp; Impact</h3>
+              <ul class="modal-results-list" id="modal-results">
+                <li>Result item 1</li>
+                <li>Result item 2</li>
+              </ul>
+            </section>
+          </div>
+
+          <!-- Right: Tech Stack & Key Highlights -->
+          <div class="modal-sidebar">
+            <div class="sidebar-box">
+              <h4 class="sidebar-heading">Technologies Used</h4>
+              <div class="modal-tech-tags" id="modal-tech-tags">
+                <span class="tag">Vanilla JS</span>
+                <span class="tag">Modern CSS</span>
+              </div>
+            </div>
+
+            <div class="sidebar-box">
+              <h4 class="sidebar-heading">Key Highlights</h4>
+              <ul class="sidebar-list" id="modal-highlights">
+                <li>60 FPS animations</li>
+                <li>WCAG 2.1 AA certified</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Navigation Footer -->
+        <div class="modal-footer-nav">
+          <button class="btn btn-ghost" id="modal-prev-btn" type="button">← Previous Project</button>
+          <button class="btn btn-ghost" id="modal-next-btn" type="button">Next Project →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- PHOTO LIGHTBOX MODAL -->
+  <!-- ======================================================== -->
+  <div class="lightbox-overlay" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Photo Lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-container">
+      <button class="lightbox-close-btn magnetic" id="lightbox-close-btn" type="button" aria-label="Close Lightbox (Esc)">✕</button>
+      <button class="lightbox-nav-btn prev-btn magnetic" id="lightbox-prev-btn" type="button" aria-label="Previous photo">‹</button>
+      <button class="lightbox-nav-btn next-btn magnetic" id="lightbox-next-btn" type="button" aria-label="Next photo">›</button>
+
+      <div class="lightbox-content">
+        <div class="lightbox-img-wrap" id="lightbox-img-wrap">
+          <img id="lightbox-img" src="assets/adarsh-1.jpg" alt="Enlarged photo" width="800" height="600" loading="lazy" onerror="handleImgError(this)" data-caption="Adarsh Kumar Singh">
+        </div>
+        <div class="lightbox-caption" id="lightbox-caption">Photo caption text</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inline Initial Image Fallback Utility -->
+  <script>
+    // Robust inline fallback handler so images never break the layout even if files are missing or moved
+    function handleImgError(img) {
+      if (!img) return;
+      img.onerror = null; // Prevent loop
+      const parent = img.parentElement;
+      if (!parent) return;
+      const caption = img.getAttribute('data-caption') || img.alt || 'Adarsh Kumar Singh';
+      const fallbackDiv = document.createElement('div');
+      fallbackDiv.className = 'img-aks-fallback';
+      fallbackDiv.setAttribute('role', 'img');
+      fallbackDiv.setAttribute('aria-label', caption);
+      fallbackDiv.innerHTML = `
+        <div class="aks-fallback-content">
+          <div class="aks-monogram">AKS</div>
+          <div class="aks-name">${caption}</div>
+          <div class="aks-subtitle">Digital Designer &amp; Dev</div>
+        </div>
+      `;
+      img.style.display = 'none';
+      parent.appendChild(fallbackDiv);
+    }
+  </script>
+</body>
+</html>
